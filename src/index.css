@@ -1,0 +1,131 @@
+@import "tailwindcss";
+
+:root {
+  --bp-red: #e8452f;
+  --bp-red-dark: #cf3a26;
+  --bp-red-tint: #fdece9;
+  --bp-red-tint-border: #f7c9c0;
+  --bp-ink: #17181a;
+  --bp-ink-soft: #4b4f54;
+  --bp-muted: #8a8f98;
+  --bp-line: #e9eaed;
+  --bp-bg: #f5f6f8;
+  --bp-card: #ffffff;
+  --bp-green: #1f9254;
+  --bp-amber: #b8860b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bp-bg);
+  color: var(--bp-ink);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--bp-red-tint-border);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d7d9dd;
+  border-radius: 10px;
+  border: 3px solid var(--bp-bg);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--bp-red);
+  outline-offset: 2px;
+}
+
+@layer components {
+  .input {
+    width: 100%;
+    border: 1px solid var(--bp-line);
+    border-radius: 0.5rem;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.875rem;
+    outline: none;
+    background: #fff;
+  }
+  .input:focus {
+    border-color: var(--bp-red);
+  }
+
+  .btn-primary {
+    background: var(--bp-red);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 0.5rem;
+    transition: background 0.15s ease;
+  }
+  .btn-primary:hover {
+    background: var(--bp-red-dark);
+  }
+  .btn-primary:disabled {
+    opacity: 0.6;
+  }
+
+  .btn-secondary {
+    background: #fff;
+    color: var(--bp-ink);
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.6rem 1.1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--bp-line);
+    transition: background 0.15s ease;
+  }
+  .btn-secondary:hover {
+    background: #f5f6f8;
+  }
+
+  .pill {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--bp-line);
+    background: #fff;
+    color: var(--bp-ink-soft);
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .pill:hover {
+    background: #f5f6f8;
+  }
+  .pill-active {
+    background: var(--bp-red-tint);
+    color: var(--bp-red);
+    border-color: var(--bp-red-tint-border);
+  }
+
+  .card {
+    background: var(--bp-card);
+    border: 1px solid var(--bp-line);
+    border-radius: 1rem;
+  }
+}
