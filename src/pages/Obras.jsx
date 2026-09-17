@@ -111,6 +111,12 @@ export default function Obras() {
                     </span>
                   </div>
 
+                  {obra.numero_of && (
+                    <p className="text-xs font-medium" style={{ color: 'var(--bp-muted)' }}>
+                      OF: {obra.numero_of}
+                    </p>
+                  )}
+
                   {obra.cliente && (
                     <p className="text-sm" style={{ color: 'var(--bp-ink-soft)' }}>
                       {obra.cliente}

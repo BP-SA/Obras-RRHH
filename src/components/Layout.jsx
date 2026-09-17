@@ -21,12 +21,7 @@ export default function Layout() {
       >
         <div>
           <div className="flex items-center gap-3 px-2 mb-8">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-white text-lg"
-              style={{ background: 'var(--bp-red)' }}
-            >
-              bp
-            </div>
+            <img src="/bp-logo.png" alt="BP" className="w-10 h-10 rounded-full object-cover shrink-0" />
             <div className="leading-tight">
               <div className="font-semibold text-[15px]">Obras & Servicios</div>
               <div className="text-xs" style={{ color: 'var(--bp-muted)' }}>

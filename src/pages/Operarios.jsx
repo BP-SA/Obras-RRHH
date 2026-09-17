@@ -29,7 +29,7 @@ export default function Operarios() {
     const q = search.trim().toLowerCase()
     if (!q) return operarios
     return operarios.filter((o) =>
-      `${o.nombre} ${o.apellido} ${o.dni || ''} ${o.puesto || ''}`.toLowerCase().includes(q)
+      `${o.nombre} ${o.apellido} ${o.cuil || ''} ${o.puesto || ''}`.toLowerCase().includes(q)
     )
   }, [operarios, search])
 
@@ -68,7 +68,7 @@ export default function Operarios() {
             />
             <input
               className="input pl-9"
-              placeholder="Buscar por nombre, DNI o puesto"
+              placeholder="Buscar por nombre, CUIL o puesto"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -90,7 +90,7 @@ export default function Operarios() {
                   >
                     <th className="py-2 pr-4">Operario</th>
                     <th className="py-2 pr-4">Puesto</th>
-                    <th className="py-2 pr-4">DNI</th>
+                    <th className="py-2 pr-4">CUIL</th>
                     <th className="py-2 pr-4">Teléfono</th>
                     <th className="py-2 pr-4">Estado</th>
                     <th className="py-2 pr-4 text-right">Acciones</th>
@@ -117,7 +117,7 @@ export default function Operarios() {
                         {op.puesto || '—'}
                       </td>
                       <td className="py-3 pr-4" style={{ color: 'var(--bp-ink-soft)' }}>
-                        {op.dni || '—'}
+                        {op.cuil || '—'}
                       </td>
                       <td className="py-3 pr-4" style={{ color: 'var(--bp-ink-soft)' }}>
                         {op.telefono ? (
@@ -192,7 +192,7 @@ function EmptyState({ hasQuery }) {
       <p className="font-medium">{hasQuery ? 'Sin resultados' : 'Todavía no hay operarios'}</p>
       <p className="text-sm mt-1" style={{ color: 'var(--bp-muted)' }}>
         {hasQuery
-          ? 'Probá con otro nombre, DNI o puesto.'
+          ? 'Probá con otro nombre, CUIL o puesto.'
           : 'Agregá el primero con el botón "Nuevo operario".'}
       </p>
     </div>

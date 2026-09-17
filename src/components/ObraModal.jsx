@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Modal from './Modal'
 import { supabase } from '../lib/supabaseClient'
 
-const empty = { nombre: '', cliente: '', ubicacion: '', estado: 'activa', color: '#E8452F' }
+const empty = { nombre: '', numero_of: '', cliente: '', ubicacion: '', estado: 'activa', color: '#E8452F' }
 
 const COLORS = ['#E8452F', '#2563EB', '#1F9254', '#B8860B', '#7C3AED', '#0891B2']
 
@@ -27,6 +27,7 @@ export default function ObraModal({ obra, onClose, onSaved }) {
 
     const payload = {
       nombre: form.nombre.trim(),
+      numero_of: form.numero_of?.trim() || null,
       cliente: form.cliente?.trim() || null,
       ubicacion: form.ubicacion?.trim() || null,
       estado: form.estado,
@@ -61,6 +62,15 @@ export default function ObraModal({ obra, onClose, onSaved }) {
             onChange={(e) => set('nombre', e.target.value)}
             placeholder="Ej: Tablero industrial Ingenio Concepción"
             autoFocus
+          />
+        </Field>
+
+        <Field label="Número de OF">
+          <input
+            className="input"
+            value={form.numero_of || ''}
+            onChange={(e) => set('numero_of', e.target.value)}
+            placeholder="Ej: OF-4521"
           />
         </Field>
 

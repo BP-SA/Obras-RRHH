@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Modal from './Modal'
 import { supabase } from '../lib/supabaseClient'
 
-const empty = { nombre: '', apellido: '', dni: '', telefono: '', puesto: '', activo: true }
+const empty = { nombre: '', apellido: '', cuil: '', telefono: '', puesto: '', activo: true }
 
 export default function OperarioModal({ operario, onClose, onSaved }) {
   const isEdit = Boolean(operario)
@@ -26,7 +26,7 @@ export default function OperarioModal({ operario, onClose, onSaved }) {
     const payload = {
       nombre: form.nombre.trim(),
       apellido: form.apellido.trim(),
-      dni: form.dni?.trim() || null,
+      cuil: form.cuil?.trim() || null,
       telefono: form.telefono?.trim() || null,
       puesto: form.puesto?.trim() || null,
       activo: form.activo,
@@ -72,8 +72,13 @@ export default function OperarioModal({ operario, onClose, onSaved }) {
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <Field label="DNI">
-            <input className="input" value={form.dni || ''} onChange={(e) => set('dni', e.target.value)} />
+          <Field label="CUIL">
+            <input
+              className="input"
+              placeholder="20-12345678-9"
+              value={form.cuil || ''}
+              onChange={(e) => set('cuil', e.target.value)}
+            />
           </Field>
           <Field label="Teléfono">
             <input

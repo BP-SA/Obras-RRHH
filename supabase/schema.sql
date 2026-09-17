@@ -9,6 +9,7 @@ create extension if not exists "pgcrypto";
 create table if not exists obras (
   id uuid primary key default gen_random_uuid(),
   nombre text not null,
+  numero_of text,
   cliente text,
   ubicacion text,
   estado text not null default 'activa' check (estado in ('activa','pausada','finalizada')),
@@ -21,7 +22,7 @@ create table if not exists operarios (
   id uuid primary key default gen_random_uuid(),
   nombre text not null,
   apellido text not null,
-  dni text,
+  cuil text,
   telefono text,
   puesto text,
   activo boolean not null default true,

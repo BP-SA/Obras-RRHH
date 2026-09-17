@@ -9,17 +9,20 @@ datos), desplegado en **Cloudflare Pages**.
 ## Funcionalidad
 
 - Login con usuario y contraseña (Supabase Auth).
-- **Obras**: alta, edición y baja (nombre, cliente, ubicación, estado, color).
-- **Operarios**: alta, edición y baja (nombre, apellido, DNI, teléfono, puesto, activo/inactivo).
+- **Obras**: alta, edición y baja (nombre, número de OF, cliente, ubicación, estado, color).
+- **Operarios**: alta, edición y baja (nombre, apellido, CUIL, teléfono, puesto, activo/inactivo).
 - **Asignaciones**: elegir una obra, uno o más operarios, y un día puntual o
-  un rango de fechas. Vista mensual filtrable por obra, con opción de quitar
-  operarios individualmente o la asignación completa.
+  un rango de fechas. Filtros por **mes** o por **rango de fechas
+  personalizado**, botón **"Hoy"** para ver quién está trabajando hoy, y
+  filtro por **obra** y por **operario**. Opción de quitar operarios
+  individualmente o la asignación completa.
 - **Exportar a Excel**: desde Asignaciones, el botón "Exportar Excel" exporta
-  exactamente lo que está filtrado en pantalla (el mes y, si elegiste una
-  obra puntual, sólo esa obra), en tres hojas: **Planificación** (fecha,
-  obra, operario, nota), **Obras** y **Operarios** — ambas limitadas a las
-  que aparecen en esa vista. Se genera en el navegador, sin pasar por ningún
-  servidor.
+  exactamente lo que está filtrado en pantalla (fecha/rango, obra y
+  operario), en tres hojas: **Planificación** (fecha, obra, operario, CUIL,
+  nota), **Obras** (todos los campos: nombre, número de OF, cliente,
+  ubicación, estado) y **Operarios** (todos los campos: nombre, apellido,
+  CUIL, teléfono, puesto, estado) — ambas limitadas a las que aparecen en
+  esa vista. Se genera en el navegador, sin pasar por ningún servidor.
 - Regla de negocio: un operario no puede estar asignado a dos obras el mismo
   día (restricción `unique(operario_id, fecha)` en la base).
 
@@ -28,6 +31,8 @@ datos), desplegado en **Cloudflare Pages**.
 1. Creá un proyecto en [supabase.com](https://supabase.com).
 2. Andá a **SQL Editor** y ejecutá el contenido de `supabase/schema.sql`
    (crea las tablas `obras`, `operarios`, `asignaciones` y las políticas RLS).
+   Si ya habías corrido una versión anterior del schema (con el campo `dni`
+   en vez de `cuil`), ejecutá también `supabase/migration_cuil_of.sql`.
 3. En **Authentication → Providers**, dejá habilitado **Email**.
 4. En **Authentication → Users**, creá manualmente un usuario por cada
    persona que vaya a usar la web (email + contraseña). No hay
@@ -67,8 +72,17 @@ npm run dev
 4. En **Settings → Environment variables**, agregá `VITE_SUPABASE_URL` y
    `VITE_SUPABASE_ANON_KEY` con los mismos valores del paso 2 (Production y
    Preview).
-5. Deploy. El archivo `public/_redirects` ya está incluido para que las
-   rutas internas (`/obras`, `/operarios`) funcionen al recargar la página.
+5. Deploy. Cloudflare puede desplegar esto de dos formas:
+   - **Pages clásico** (Git integration por UI): usa el archivo
+     `public/_redirects` incluido para que las rutas internas (`/obras`,
+     `/operarios`) funcionen al recargar.
+   - **Worker con assets** (`wrangler deploy`, lo que arma Cloudflare cuando
+     detecta un `wrangler.jsonc`): el propio `wrangler.jsonc` que Cloudflare
+     genera ya trae `"assets": { "not_found_handling": "single-page-application" }`,
+     que hace lo mismo. En ese caso **no debe existir** `public/_redirects`
+     (si convive con `not_found_handling`, Cloudflare tira un error de
+     "Infinite loop detected"). Si tu build usa `wrangler deploy`, borrá
+     `public/_redirects` antes de desplegar.
 
 ## Estructura
 

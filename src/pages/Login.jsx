@@ -34,8 +34,8 @@ export default function Login() {
         style={{ background: 'linear-gradient(155deg, var(--bp-red) 0%, var(--bp-red-dark) 100%)' }}
       >
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center font-black text-xl">
-            bp
+          <div className="w-11 h-11 rounded-full bg-white flex items-center justify-center overflow-hidden shrink-0">
+            <img src="/bp-logo.png" alt="BP" className="w-full h-full object-cover" />
           </div>
           <div className="leading-tight">
             <div className="font-semibold">Obras & Servicios</div>
@@ -71,11 +71,8 @@ export default function Login() {
           style={{ border: '1px solid var(--bp-line)' }}
         >
           <div className="md:hidden flex items-center gap-2 mb-6">
-            <div
-              className="w-9 h-9 rounded-lg flex items-center justify-center font-black text-white"
-              style={{ background: 'var(--bp-red)' }}
-            >
-              bp
+            <div className="w-9 h-9 rounded-full overflow-hidden shrink-0">
+              <img src="/bp-logo.png" alt="BP" className="w-full h-full object-cover" />
             </div>
             <span className="font-semibold">Obras & Servicios</span>
           </div>
