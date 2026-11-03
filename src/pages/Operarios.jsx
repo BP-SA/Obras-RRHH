@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Plus, Search, Pencil, Trash2, Phone } from 'lucide-react'
+import { Plus, Search, Pencil, Trash2, Phone, Download } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient'
 import PageHeader from '../components/PageHeader'
 import OperarioModal from '../components/OperarioModal'
+import { exportarOperarios } from '../lib/exportExcel'
 
 export default function Operarios() {
   const [operarios, setOperarios] = useState([])
@@ -46,15 +47,25 @@ export default function Operarios() {
         title="Operarios"
         subtitle="Personal disponible para asignar a obras."
         action={
-          <button
-            className="btn-primary flex items-center gap-2"
-            onClick={() => {
-              setEditing(null)
-              setModalOpen(true)
-            }}
-          >
-            <Plus size={16} /> Nuevo operario
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              className="btn-secondary flex items-center gap-2"
+              onClick={() => exportarOperarios(operarios)}
+              disabled={operarios.length === 0}
+              title="Exporta todos los operarios a Excel"
+            >
+              <Download size={15} /> Exportar Excel
+            </button>
+            <button
+              className="btn-primary flex items-center gap-2"
+              onClick={() => {
+                setEditing(null)
+                setModalOpen(true)
+              }}
+            >
+              <Plus size={16} /> Nuevo operario
+            </button>
+          </div>
         }
       />
 

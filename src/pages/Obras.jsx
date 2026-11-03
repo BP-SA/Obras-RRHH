@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Plus, MapPin, Pencil, Trash2 } from 'lucide-react'
+import { Plus, MapPin, Pencil, Trash2, Download } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient'
 import PageHeader from '../components/PageHeader'
 import ObraModal from '../components/ObraModal'
+import { exportarObras } from '../lib/exportExcel'
 
 const ESTADOS = [
   { value: 'todas', label: 'Todas' },
@@ -53,15 +54,25 @@ export default function Obras() {
         title="Obras"
         subtitle="Sitios de trabajo disponibles para asignar operarios."
         action={
-          <button
-            className="btn-primary flex items-center gap-2"
-            onClick={() => {
-              setEditing(null)
-              setModalOpen(true)
-            }}
-          >
-            <Plus size={16} /> Nueva obra
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              className="btn-secondary flex items-center gap-2"
+              onClick={() => exportarObras(obras)}
+              disabled={obras.length === 0}
+              title="Exporta todas las obras a Excel"
+            >
+              <Download size={15} /> Exportar Excel
+            </button>
+            <button
+              className="btn-primary flex items-center gap-2"
+              onClick={() => {
+                setEditing(null)
+                setModalOpen(true)
+              }}
+            >
+              <Plus size={16} /> Nueva obra
+            </button>
+          </div>
         }
       />
 
